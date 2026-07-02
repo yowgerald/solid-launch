@@ -72,36 +72,29 @@ You can also try my other starters:
 
 I'll assume you don't want to change anything with this setup after cloning so let's get to work!
 
-1. Get template
+1. Get template (I made [uplate](https://github.com/Blankeos/uplate) to make it easy to update)
 
-```sh
-npx gitpick blankeos/solid-launch <your-app-name>
-cd <your-app-name>
-```
+   ```sh
+   npx uplate blankeos/solid-launch <your-app-name>
+   cd <your-app-name>
+   ```
 
-2. Copy the environment variables (I recommend using [crabenv](https://github.com/blankeos/crabenv))
+2. Copy the environment variables (I recommend using [crabenv](https://github.com/blankeos/crabenv) to manage env vars)
 
    ```sh
    crabenv cp # or cp .env.example .env
+
+   # Make sure that the DATABASE_URL is "file:/User/Projects/solid-launch/local.db" (`crabenv cp` automatically does this for you)
    ```
 
-3. Replace the `<absolute_url>` in the local database with:
-
-   ```sh
-   pwd # If it outputs: /User/Projects/solid-launch
-
-   # Replace the .env with:
-   DATABASE_URL="file:/User/Projects/solid-launch/local.db"
-   ```
-
-4. Generate
+3. Generate
 
    ```sh
    bun db:generate # generates Kysely and Prisma client types.
    bun db:migrate # migrates your database.
    ```
 
-5. Install deps and run dev
+4. Install deps and run dev
 
    ```sh
    bun install
@@ -240,23 +233,23 @@ apps I make aren't too business-logic-heavy.
 
 ### Updating
 
-You're eventually going to make projects with this boilerplate, the code will for sure drift especially framework code (because most of it is not library code). Luckily, I made it easy to make patch your boilerplate up (w/ AI).
+You're eventually going to make projects with this boilerplate, the code will for sure drift especially framework code or patches w/ important code like auth code.
+Luckily if you're using [uplate](https://github.com/Blankeos/uplate). It's as easy as:
+
+```sh
+npx uplate upgrade # Will auto-merge when no conflicts
+
+# Or you can use any coding agent! Just tell your agent to run:
+npx uplate upgrade --prompt
+```
 
 ### Deployment
 
-> [!WARNING]
->
-> Still in progress
+Lots of examples here: https://github.com/blankeos/vike-deploy-examples
 
-Here are some guides on how to deploy.
-
-- [ ] Dokku (self-host VPS - I recommend this)
-- [ ] Kamal (self-host VPS)
-- [ ] Railway
-- [ ] Caprover (self-host VPS)
-- [ ] Cloudflare (serverless + static)
-- [ ] Vercel (serverless + static)
-- [ ] Netlify (static)
+- Docker (Dokku, Kamal, Railway, Caprover)
+- Static: Vercel, Cloudflare Pages, Netlify
+- Serverless: Vercel, Netlify, Cloudflare Workers
 
 ### Limitations
 

@@ -121,7 +121,4 @@ app.onError((error, c) => {
 
 export default {
   fetch: app.fetch,
-  prod: {
-    port: privateEnv.PORT,
-  },
 } satisfies Server

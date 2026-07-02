@@ -3,17 +3,14 @@ import tailwindcss from "@tailwindcss/vite"
 import vike from "vike/plugin"
 import vikeSolid from "vike-solid/vite"
 import { defineConfig } from "vite"
-import solidSvg from "vite-plugin-solid-svg" // Custom Icons (SVG)
+import solidSvg from "vite-plugin-solid-svg"
 
 export default defineConfig({
   plugins: [vike(), vikeSolid(), vikeRoutegen(), solidSvg(), tailwindcss()],
   resolve: { tsconfigPaths: true },
   server: {
-    port: 3000,
-    allowedHosts: [
-      "*", // So payment webhooks work (or just replace this with the actual domain). This is only in dev anyway.
-    ],
+    // So payment webhooks work (or just replace this with the actual domain). This is only in dev anyway.
+    allowedHosts: ["*"],
   },
-  preview: { port: 3000 },
   envPrefix: ["PUBLIC_"],
 })
