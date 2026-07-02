@@ -31,7 +31,8 @@ You can also try my other starters:
   - [x] Magic Link
   - [x] OTPs
   - [ ] 2FA (🟡 Backlog)
-    - [ ] Authenticator App (🟡 Backlog)
+    - [ ] OTP
+    - [ ] TOTP Authenticator App (🟡 Backlog)
     - [ ] Backup Code (🟡 Backlog)
   - [ ] Pass Key (🟡 Backlog)
   - [x] Organization Auth (easily opt-outable)
@@ -78,10 +79,10 @@ npx gitpick blankeos/solid-launch <your-app-name>
 cd <your-app-name>
 ```
 
-2. Copy the environment variables
+2. Copy the environment variables (I recommend using [crabenv](https://github.com/blankeos/crabenv))
 
    ```sh
-   cp .env.example .env
+   crabenv cp # or cp .env.example .env
    ```
 
 3. Replace the `<absolute_url>` in the local database with:
@@ -290,10 +291,7 @@ Here are some guides on how to deploy.
 ### FAQs
 
 - Why not better-auth?
-  - I thought long and hard about this, and I'm foreseeing a lot of pushback on this so I'll document it here.
-  - I completely understand the extreme strawman argument of "I want to build an app, so here's the entire OAuth spec to implement it". In almost 99% of usecases, you will choose better-auth to save time, it will be better tested, and will give you more flexibility for easier auth flows for 99% of apps. This Lucia implementation is for that extra flexibility for harder auth flows in 1% of apps--which your next SaaS and mine most likely won't be, so why??
-  - I initially wrote the template when better-auth wasn't the standard solution, while Lucia was the up and coming one. Lucia actually made me learn about auth more than any resource in my career, so I started to prefer it. Better auth will save you time, but I already spent that time, and this is the flywheel I wrote to save just as much time as using better auth.
-  - I genuinely believe simple auth isn't so complicated that you'd need a library to abstract it. And for complex auth, you will almost always need a custom solution eventually.
-  - But for flexibility i.e. changing my server framework, database, etc... This approach won't save me time. Better auth wins there.
-  - But it will save me time if I want to support an extremely custom auth flow that better auth doesn't support yet. (I have no examples)
-  - I also save time if I want to implement auth in other languages other than javascript i.e. Rust because the structure and architecture can be done in other languages too.
+  - It's a combination of sunken-cost on my end from pursuing self-rolled auth for years as an educational exercise + the idea of making a very comprehensive auth without any abstraction.
+  - better-auth is a js library, so you'll rely on language-specific ports if you wanna try it in other languages i.e. rust, go, etc. The current implementation aims to be verbose, but portable by concept (mostly based on Lucia), which means you can rebuild this auth system in other languages just by understanding how to architect a backend.
+  - I genuinely believe simple auth isn't so complicated that it needs a library. And complex auth would need a custom solution eventually. I'm hoping this codebase can be a good reference to that.
+  - Though... 99% of usecases, better-auth will be better and save time. If you're making multiple apps, better-auth will make it easy to repeat and maintain.
